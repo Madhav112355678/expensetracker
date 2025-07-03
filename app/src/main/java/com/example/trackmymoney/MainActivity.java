@@ -11,6 +11,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ReportFragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -50,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         stats.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new ListFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new report_fragment()).commit();
             }
         });
     }
