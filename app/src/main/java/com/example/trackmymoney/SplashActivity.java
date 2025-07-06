@@ -14,6 +14,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 
+//first activity that launches after user opens this application
+//shows splash screen on android 12- devices
 public class SplashActivity extends AppCompatActivity {
 
     @Override

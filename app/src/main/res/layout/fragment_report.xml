@@ -18,16 +18,7 @@
         <!-- TODO: Update blank fragment layout -->
 
 
-        <com.github.mikephil.charting.charts.PieChart
-            android:id="@+id/pieChart"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:layout_margin="16dp"
-            app:layout_constraintBottom_toTopOf="@id/barchart"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteX="16dp" />
-
-        <com.github.mikephil.charting.charts.BarChart
+        <!--  <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/barchart"
             android:layout_width="match_parent"
             android:layout_height="350dp"
@@ -35,7 +26,26 @@
             android:background="@color/Secondary"
             app:layout_constraintTop_toBottomOf="@id/pieChart"
             tools:layout_editor_absoluteX="0dp" />
+            -->
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <com.github.mikephil.charting.charts.PieChart
+        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/pieChart"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_margin="16dp" />
+
+
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/barchart"
+        app:layout_constraintTop_toBottomOf="@id/pieChart"
+        android:layout_marginTop="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:background="#FFFF "/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 </FrameLayout>

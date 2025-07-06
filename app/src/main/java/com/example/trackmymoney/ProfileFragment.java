@@ -13,6 +13,8 @@ import android.view.ViewGroup;
  * Use the {@link ProfileFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
+
+//This shows user profile and log status
 public class ProfileFragment extends Fragment {
 
    public View OnCreateView(LayoutInflater inflator , ViewGroup container,Bundle SavedInstanceState){

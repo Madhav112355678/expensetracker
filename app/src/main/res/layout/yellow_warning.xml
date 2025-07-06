@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout   xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_marginTop="10dp"
+        android:layout_width="180dp"
+        android:layout_height="230dp"
+        android:elevation="6dp"
+        android:layout_marginStart="20dp"
+        android:background="#f0c135"
+        >
+
+        <ImageView
+            android:layout_width="130dp"
+            android:layout_height="160dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="20dp"
+            android:background="@drawable/rounded_grid"
+            android:foreground="@drawable/yellowcaution" />
+
+        <TextView
+            android:layout_width="140dp"
+            android:layout_height="50dp"
+            android:fontFamily="sans-serif-black"
+            android:text="@string/caution_your_e_spending_too_much"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display3"
+            android:textColor="#6B5109"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal"/>
+
+
+    </LinearLayout>

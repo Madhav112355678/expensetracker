@@ -2,4 +2,6 @@
     <string name="app_name">TrackMyMoney</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="category">Category</string>
+    <string name="caution_your_e_spending_too_much">Caution your\'e spending too much</string>
 </resources>
