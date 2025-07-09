@@ -10,127 +10,208 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    <androidx.cardview.widget.CardView
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:id="@+id/balanceviewer"
-        android:layout_width="160dp"
-        android:layout_height="230dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/clickbar"
-        android:elevation="10dp">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:hint="Remaining Balance"
-            android:paddingTop="5dp"
-            android:textAlignment="center"
-            android:textColor="#99034B03"
-            android:textSize="20sp" />
+<!-- card view to show balance and manage it -->
+        <androidx.cardview.widget.CardView
+            app:layout_constraintEnd_toStartOf="@+id/wave1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/balanceviewer"
+            android:layout_width="160dp"
+            android:layout_height="230dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/clickbar"
+            android:elevation="10dp"
+            android:orientation="vertical">
+ <!-- heading -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:hint="Remaining Balance"
+                android:paddingTop="5dp"
+                android:textAlignment="center"
+                android:textColor="#99034B03"
+                android:textSize="20sp" />
+<!-- balance viewer-->
+            <TextView
+                android:id="@+id/balanceshower"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="60dp"
+                android:textAlignment="center"
+                android:padding="5dp"
+                android:textSize="20sp"
+                android:textColor="#1FD139"/>
+<!-- button when clicked on this button we will have a view which will ask for add balance or reset it-->
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="60dp"
-            android:text="10000"
-            android:textAlignment="center"
-            android:padding="5dp"
-            android:textSize="20sp"
-            android:textColor="#1FD139"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="85dp"
-            android:layout_marginTop="100dp"
-            android:text="You have sufficient balance."
-            android:textAlignment="center"
-            android:padding="15dp"
-            />
+            <TextView
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/putbalance"
+                android:id="@+id/quote"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:gravity="center_vertical"
 
+                android:layout_marginTop="100dp"
+                android:hint="Click Here to Add Balance"
+                android:textAlignment="center"
+                tools:ignore="RtlCompat" />
 
-        <Button
-            android:layout_width="100dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="180dp"
-            android:hint="Add Balance"
-            android:padding="0dp"
-            android:textAlignment="center"
-            android:textColorHint="#C4FF03" />
+            <!-- visible only one at a time either constraint layout will show or either quote will show-->
+            <!-- this layout will become visible when we click on view with quote id -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="133dp"
+                android:layout_marginTop="100dp"
+                android:textAlignment="center"
+                android:id="@+id/balancemanuipulator"
+                >
 
+                <!-- shows input-->
+            <EditText
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="0dp"
+                android:inputType="number"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:hint="balance"
+                android:id="@+id/putbalance"
+                />
+  <!-- add balance button-->
+                <Button
+                    android:id="@+id/addbalance"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:hint="Add balance"
+                    android:padding="0dp"
+                    android:textAlignment="center"
+                    android:textColorHint="#C4FF03"
+                    android:textSize="15sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/putbalance" />
+<!-- reset balance button -->
+                <Button  app:layout_constraintTop_toBottomOf="@id/addbalance"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:id="@+id/resetbalance"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:hint="Reset balance"
+                    android:padding="0dp"
+                    android:textSize="15sp"
+                    android:textAlignment="center"
+                    android:textColorHint="#C4FF03"
+                    app:layout_constraintVertical_bias="0"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.cardview.widget.CardView>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="74dp"
+                android:layout_gravity="bottom"
+                android:id="@+id/incrementdecrementviewer"
+               >
+                <TextView
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_width="80dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/showincrement"
+                    android:background="@color/colorPrimary"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    />
+                <TextView
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_width="80dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/showdecrement"
+                    android:background="#E90C0C"
+                    android:gravity="center"
+                    android:textAlignment="center"
 
-    <FrameLayout
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@id/balanceviewer"
-        android:layout_width="200dp"
-        android:layout_height="230dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="20dp"
-        android:clipToOutline="true"
-        android:elevation="17dp"
-        android:foreground="#61FFFFFF"
-        android:background="@drawable/rounded_grid">
-        <TextView
-            android:id="@+id/percentviewer"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:textAlignment="center"
-            android:padding="6dp"
-            android:text="75%"
-            android:textSize="20sp"
-            android:layout_gravity="center"/>
+                    />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <com.example.trackmymoney.WaveView
-            android:id="@+id/waveview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+        </androidx.cardview.widget.CardView>
 
-    </FrameLayout>
+        <FrameLayout
+            android:id="@+id/wave1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/balanceviewer"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="180dp"
+            android:layout_height="230dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="20dp"
+            android:clipToOutline="true"
+            android:elevation="17dp"
+            android:foreground="#615D810A"
+            android:background="@drawable/rounded_grid">
+            <TextView
+                android:id="@+id/percentviewer"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:textAlignment="center"
+                android:padding="6dp"
+                android:text="75%"
+                android:textSize="20sp"
+                android:layout_gravity="center"/>
+
+            <com.example.trackmymoney.WaveView
+                android:id="@+id/waveview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </FrameLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-     <GridLayout
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:layout_marginTop="240dp">
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
 
-         <TextView
-             android:id="@+id/myexpensetext"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:text="My Today's Expense"
-             android:textStyle="bold"
-             android:textSize="28sp"
-             android:layout_marginLeft="20dp"
-             />
+        android:layout_marginTop="250dp">
 
-         <Spinner
-             android:id="@+id/changeexpenseviewbutton"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:layout_row="0"
-             android:layout_column="1"
-             android:layout_marginLeft="20dp"
-             android:gravity="center_vertical"
-             android:spinnerMode="dropdown" />
+        <TextView
+            android:id="@+id/myexpensetext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="My Today's Expense"
+            android:textStyle="bold"
+            android:textSize="28sp"
+            android:layout_marginLeft="20dp"
+            />
 
-     </GridLayout>
+        <Spinner
+            android:id="@+id/changeexpenseviewbutton"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_row="0"
+            android:layout_column="1"
+            android:layout_marginStart="10dp"
+            android:layout_marginRight="20dp"
+            android:gravity="center_vertical"
+            android:spinnerMode="dropdown" />
+
+    </GridLayout>
 
     <ScrollView
         android:id="@+id/expenselist"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:layout_marginTop="270dp"
+        android:layout_height="380dp"
+        android:layout_marginTop="290dp"
         android:padding="16dp">
 
 
-<LinearLayout android:id="@+id/scrollcontainer"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:orientation="vertical">
-</LinearLayout>
+        <LinearLayout
+            android:id="@+id/scrollcontainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"/>
 
     </ScrollView>
 

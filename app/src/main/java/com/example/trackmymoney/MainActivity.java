@@ -13,6 +13,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ReportFragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.trackmymoney.Dao.expensesDao;
 import com.example.trackmymoney.Model.expenses;
@@ -41,12 +42,16 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new HomeFragment()).commit();
 
 
+
+
         //building singleton database
         try {
             database = DatabaseProvider.getDatabase(this.getApplicationContext());
         }catch(Exception e) {
              throw new RuntimeException("error in databaseprovider") ;
         }
+
+         //database.expensesdao().deleteAll();
 
         bottomNavigation = findViewById(R.id.bottom_navigation);
         //home button click
@@ -57,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new HomeFragment()).commit();
             }
         });
+
+
 
         //add button click
         Button add = findViewById(R.id.addbutton);

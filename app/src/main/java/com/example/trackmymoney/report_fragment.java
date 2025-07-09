@@ -165,6 +165,7 @@ public class report_fragment extends Fragment {
 
         //putting spending data in array to populate data in the charts
         for (int i = 1; i <= day; i++) {
+
             datetofind = String.valueOf(i) + "/" + String.valueOf(month) + "/" + String.valueOf(year);
             if (dataaccessobj.getSumPerDay(datetofind) > 0) {
                 totalof7days += dataaccessobj.getSumPerDay(datetofind);

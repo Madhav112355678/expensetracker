@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
- xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-    <GridLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/topPanel"
         android:layout_width="match_parent"
         android:layout_height="60dp"
@@ -14,27 +15,44 @@
         android:background="@drawable/upper_rounded_grid">
 
         <ImageView
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/title"
             android:id="@+id/logo"
-            android:layout_width="94dp"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:src="@drawable/logo" />
 
         <TextView
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/logo"
+            android:id="@+id/title"
+            app:layout_constraintEnd_toStartOf="@id/profilebutton"
             android:text="EXPENSE TRACKER"
+            android:textAlignment="center"
+            android:gravity="center"
             android:textColor="@color/Secondary"
             android:textSize="28sp"
-            android:textStyle="italic" />
+            android:textStyle="italic"  android:layout_width="wrap_content"/>
 
         <ImageButton
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/profilebutton"
             android:layout_width="40dp"
             android:layout_height="45dp"
             android:layout_gravity="center_vertical"
-            android:scaleType="fitXY"
-            android:layout_marginLeft="20dp"
             android:background="@drawable/bottom_rounded"
-            android:src="@drawable/baseline_supervised_user_circle_24" />
+            android:scaleType="fitXY"
+            android:src="@drawable/baseline_supervised_user_circle_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/title"
+            tools:layout_editor_absoluteY="0dp" />
 
-    </GridLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <FrameLayout
         android:id="@+id/fragment_container"
@@ -45,7 +63,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
-  android:layout_marginBottom="20dp"
+        android:layout_marginBottom="20dp"
         android:layout_height="50dp"
         android:background="@drawable/rounded_grid"
         >
@@ -91,7 +109,7 @@
             />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </LinearLayout>

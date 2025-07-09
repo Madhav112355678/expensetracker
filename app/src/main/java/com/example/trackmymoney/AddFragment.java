@@ -2,6 +2,8 @@ package com.example.trackmymoney;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,11 +13,14 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -24,6 +29,7 @@ import java.util.List;
 // Also import your adapter and model if needed
 import com.example.trackmymoney.Adapters.CategoryAdapter;
 import com.example.trackmymoney.Dao.expensesDao;
+import com.example.trackmymoney.Model.SharedViewModel;
 import com.example.trackmymoney.database.Appdatabase;
 import com.example.trackmymoney.database.DatabaseProvider;
 import com.google.android.material.snackbar.Snackbar;
@@ -67,6 +73,8 @@ public class AddFragment extends Fragment {
     public void onResume() {
         super.onResume();
         Button add = null ;
+        SharedViewModel viewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class); // or any long value
+         SharedPreferences cache = requireContext().getSharedPreferences("Balances", Context.MODE_PRIVATE);
 
         //loading database
         try {
@@ -82,6 +90,11 @@ public class AddFragment extends Fragment {
                 Log.e("debug addfragment" , "error at line 72") ;
                 throw new RuntimeException("error");
             }
+
+
+
+
+
 
 
             //Accessing buttons as java objects
@@ -110,12 +123,22 @@ public class AddFragment extends Fragment {
                 long longamount;
                 String strcategory, strdate;
                 CategoryItem categoryitem = (CategoryItem) accesscat.getSelectedItem() ;
-                if (amount.getText() != null & dateinput.getText() != null) {
+                if (amount.getText() != null && dateinput.getText() != null && categoryitem != null) {
                             longamount = Long.parseLong(amount.getText().toString());
                             strcategory = categoryitem.getCategoryName();
                             strdate = dateinput.getText().toString();
                             expenses.add(longamount, strcategory, strdate);
-                            Toast.makeText(getContext() , "saved successfully" , Toast.LENGTH_LONG).show() ;
+
+                                if (cache != null) {
+                                    cache.edit().putLong("balance", cache.getLong("balance", 0) - longamount).commit();
+                                    viewModel.setDecrement(longamount); // or any long value
+                                    //TextView showdecrement = getActivity().findViewById(R.id.showdecrement) ;
+                                   // showdecrement.setText(String.valueOf(longamount));
+                                    Toast.makeText(getContext() , "saved successfully" , Toast.LENGTH_LONG).show() ;
+                                } else {
+                                    Log.d("FATAL exception", "error at line 129 file AddFragment");
+                                    expenses.Delete(strcategory, longamount, strdate);
+                                }
                         } else {
                             Snackbar.make(v, "Please fill all the fields", Snackbar.LENGTH_LONG).show();
                         }

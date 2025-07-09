@@ -51,4 +51,7 @@ public interface expensesDao {
     //Delete from expenses
     @Query("DELETE FROM expenses WHERE category = :category AND amount = :amount AND date = :date")
            public void Delete(String category , long amount , String date) ;
+
+    @Query("DELETE FROM expenses")
+      public void deleteAll() ;
 }
