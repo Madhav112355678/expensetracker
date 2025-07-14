@@ -9,6 +9,8 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.trackmymoney.Dao.expenseDetailsDao;
 import com.example.trackmymoney.Model.expensedetails;
@@ -38,10 +40,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new HomeFragment()).commit();
 
+        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.fragmentContainerView);
 
-
+        NavController navController = navHostFragment.getNavController();
 
 
         //building singleton database
@@ -57,19 +60,21 @@ public class MainActivity extends AppCompatActivity {
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new HomeFragment()).commit();
+                navController.navigate(R.id.action_global_homeFragment);
             }
         });
          //database.expensesdao().deleteAll();
         SharedPreferences shard = getSharedPreferences("Balances" , MODE_PRIVATE) ;
         shard.edit().remove("limit") ;
         shard.edit().remove("currentbalance") ;
-        //add button click
+
+
+       //add button click listener
         Button add = findViewById(R.id.addbutton);
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new AddFragment()).commit();
+               navController.navigate(R.id.action_global_addFragment);
             }
         });
 
@@ -78,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
         stats.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new report_fragment()).commit();
+                navController.navigate(R.id.action_global_report_fragment);
             }
         });
 
@@ -87,13 +92,13 @@ public class MainActivity extends AppCompatActivity {
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new ProfileFragment()).commit();
+                navController.navigate(R.id.action_global_profileFragment);
             }
         });
 
        Button history = findViewById(R.id.showhistory) ;
         history.setOnClickListener(v -> {
-               getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container , new HistoryFragment()).commit() ;
+          navController.navigate(R.id.action_global_historyFragment); ;
         });
     }
 

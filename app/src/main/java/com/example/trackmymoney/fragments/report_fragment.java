@@ -122,10 +122,24 @@ public class report_fragment extends Fragment {
         PieChart pieChart = view.findViewById(R.id.pieChart);
         //populating data in the chart
         ArrayList<PieEntry> entries = new ArrayList<>();
-        entries.add(new PieEntry(dataaccessobj.getSumByfood(email), "Food"));
-        entries.add(new PieEntry(dataaccessobj.getSumByShopping(email), "Shopping"));
-        entries.add(new PieEntry(dataaccessobj.getSumByTravel(email), "Travel"));
-        entries.add(new PieEntry(dataaccessobj.getSumByOther(email), "other"));
+        if(dataaccessobj.getSumByfood(email) > 0) {
+            entries.add(new PieEntry(dataaccessobj.getSumByfood(email) , "food")) ;
+        }
+
+        if (dataaccessobj.getSumByOther(email) > 0) {
+            entries.add(new PieEntry(dataaccessobj.getSumByOther(email), "other"));
+
+        }
+        if (dataaccessobj.getSumByShopping(email) > 0) {
+            entries.add(new PieEntry(dataaccessobj.getSumByShopping(email), "Shopping"));
+
+        }
+
+        if(dataaccessobj.getSumByTravel(email) > 0) {
+            entries.add(new PieEntry(dataaccessobj.getSumByTravel(email), "Travel"));
+
+        }
+
 
 
         PieDataSet dataSet = new PieDataSet(entries, "Spending Breakdown");

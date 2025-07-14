@@ -1,6 +1,7 @@
 package com.example.trackmymoney.Dao;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Query;
 
 import com.example.trackmymoney.Model.expensedetails;
@@ -49,8 +50,11 @@ public interface expenseDetailsDao {
             public int getSumByOther(String email) ;
 
     //Delete from expenses
+
+    @Delete
+    void delete(expensedetails expensedetails) ;
     @Query("DELETE FROM expensedetails WHERE category = :category AND amount = :amount AND date = :date AND email = :email")
-           public void Delete(String category , long amount , String date , String email) ;
+           public void Deleteexpense(String category , long amount , String date , String email) ;
 
     @Query("DELETE FROM expensedetails WHERE email = :email")
       public void deleteAll(String email) ;

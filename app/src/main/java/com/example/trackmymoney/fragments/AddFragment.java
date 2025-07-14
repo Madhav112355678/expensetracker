@@ -151,7 +151,7 @@ public class AddFragment extends Fragment {
                             Toast.makeText(getContext(), "saved successfully", Toast.LENGTH_LONG).show();
                         } else {
                             Log.d("FATAL exception", "error at line 129 file AddFragment");
-                            expenses.Delete(strcategory, longamount, strdate,email);
+                            expenses.Deleteexpense(strcategory, longamount, strdate,email);
                         }
                     }else {
                         Toast.makeText(requireContext() , "this month is not current month" ,Toast.LENGTH_LONG).show() ;

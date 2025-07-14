@@ -2,6 +2,7 @@ package com.example.trackmymoney.fragments;
 
 import static android.content.Context.MODE_PRIVATE;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -137,6 +138,7 @@ public class HomeFragment extends Fragment {
 
 
     //on resume
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public void onResume() {
         super.onResume();
@@ -344,23 +346,27 @@ public class HomeFragment extends Fragment {
         View expenseListView = getActivity().findViewById(R.id.expenselist);
         expenseListView.setClickable(true);
 
-        expenseListView.setOnTouchListener((v, event) -> {
+       /* expenseListView.setOnTouchListener((v, event) -> {
             for (int i = 0; i < linearLayout.getChildCount(); i++) {
                 ConstraintLayout view = (ConstraintLayout) linearLayout.getChildAt(i);
                 view.setOnTouchListener(new SwipeToDeleteTouchListener(getContext(), view, linearLayout , email));
             }
             return true;
         });
+
+        */
+
+
+
         LinearLayout containerLayout = getActivity().findViewById(R.id.scrollcontainer);
         ScrollAdapter scrolladapter = new ScrollAdapter(this.getContext(), expenslist);
         scrolladapter.populateInto(containerLayout);
-
-
     }
 
 
 
     //set wave on different situations but logic should be same and robust
+    @SuppressLint("SetTextI18n")
     public boolean setWave(Context context) {
             long current = balance.getLong("currentbalance", 0L);
             long limit = balance.getLong("limit", 0L);
@@ -375,7 +381,7 @@ public class HomeFragment extends Fragment {
                 return false;
             } else {
                 wave.setPercentage(fitted);
-                percentviewer.setText(String.valueOf((int)percentage) + "%") ;
+                percentviewer.setText((int) percentage + "%") ;
             }
         } else {
             Toast.makeText(getContext(), "please initialize data", Toast.LENGTH_LONG).show();
@@ -431,7 +437,8 @@ class SwipeToDeleteTouchListener implements View.OnTouchListener {
                         String selecteddate = ((TextView) targetView.findViewById(R.id.dateview)).getText().toString();
                         long selectedamount = Long.parseLong(((TextView) targetView.findViewById(R.id.amountview)).getText().toString().substring(1));
                         String seletedcategory = ((TextView) targetView.findViewById(R.id.categoryview)).getText().toString();
-                        if (onSwipeRight(seletedcategory, selectedamount, selecteddate , context , email) == true) {
+                        if (onSwipeRight(seletedcategory, selectedamount, selecteddate, context, email)) {
+                            Log.d("DeleteDebug", "Deleting: " + selecteddate + ", " + selectedamount + ", " + seletedcategory + ", " + email);
                             parentLayout.removeView(targetView);
                             Toast.makeText(context, "Item deleted", Toast.LENGTH_SHORT).show();
                         } else {
@@ -462,7 +469,7 @@ class SwipeToDeleteTouchListener implements View.OnTouchListener {
             }
 
             try {
-                database.expensesdao().Delete(category, amount, date , email );
+                database.expensesdao().Deleteexpense(category, amount, date , email );
             }catch(Exception e) {
                 Log.d("#Error" , "DatabaseError:HomeFragment:381") ;
                 return false ;

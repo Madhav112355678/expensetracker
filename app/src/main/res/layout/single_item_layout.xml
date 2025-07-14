@@ -9,39 +9,53 @@
 
     <TextView
         android:id="@+id/amountview"
-        android:layout_width="100dp"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:lineSpacingExtra="24sp"
+        android:gravity="center"
+        android:lineSpacingExtra="20sp"
         android:padding="15dp"
+        android:text="424324"
         android:textColor="@color/white"
-        android:textSize="20sp"
-        android:layout_marginEnd="0dp"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@id/categoryview"
         app:layout_constraintStart_toStartOf="parent"
-        android:text="424324" />
+        tools:layout_editor_absoluteY="0dp" />
 
     <TextView
-
+        android:gravity="center"
         android:id="@+id/categoryview"
-        android:layout_width="160dp"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:padding="15dp"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textSize="14sp"
         android:layout_marginStart="0dp"
+        app:layout_constraintEnd_toStartOf="@id/dateview"
         app:layout_constraintStart_toEndOf="@id/amountview" />
 
     <TextView
         android:id="@+id/dateview"
-        android:layout_width="130dp"
-        android:layout_height="match_parent"
-        android:paddingTop="15dp"
+        android:layout_width="75dp"
+        android:layout_height="48dp"
+        android:gravity="center_vertical"
         android:text="lkalf"
-        android:textAlignment="viewStart"
-        android:paddingStart="10dp"
         android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/deletebutton"
+        app:layout_constraintStart_toEndOf="@id/categoryview"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/deletebutton"
+        android:layout_width="37dp"
+        android:layout_height="41dp"
+        android:layout_marginEnd="4dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/deletbutton"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/categoryview" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
