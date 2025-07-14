@@ -1,4 +1,4 @@
-package com.example.trackmymoney;
+package com.example.trackmymoney.fragments;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
@@ -13,26 +13,27 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 // Also import your adapter and model if needed
 import com.example.trackmymoney.Adapters.CategoryAdapter;
-import com.example.trackmymoney.Dao.expensesDao;
+import com.example.trackmymoney.CategoryItem;
+import com.example.trackmymoney.Dao.expenseDetailsDao;
 import com.example.trackmymoney.Model.SharedViewModel;
+import com.example.trackmymoney.R;
 import com.example.trackmymoney.database.Appdatabase;
 import com.example.trackmymoney.database.DatabaseProvider;
-import com.google.android.material.snackbar.Snackbar;
 
 
 //Add fragment basically save new expense page
@@ -60,10 +61,24 @@ public class AddFragment extends Fragment {
    }
 
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                requireActivity().getSupportFragmentManager().popBackStack();
+            }
+        };
+
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
     }
 
 
@@ -74,28 +89,23 @@ public class AddFragment extends Fragment {
         super.onResume();
         Button add = null ;
         SharedViewModel viewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class); // or any long value
-         SharedPreferences cache = requireContext().getSharedPreferences("Balances", Context.MODE_PRIVATE);
-
+        SharedPreferences cache = requireContext().getSharedPreferences("Balances", Context.MODE_PRIVATE);
+        SharedPreferences metadata = requireContext().getSharedPreferences("MyPrefs" , Context.MODE_PRIVATE) ;
+        metadata.getString("email" , "empty");
         //loading database
         try {
             add = getActivity().findViewById(R.id.addbutton);
             Appdatabase db = DatabaseProvider.getDatabase(getContext()) ;
-            expensesDao expenses ;
+            expenseDetailsDao expenses ;
 
             //assert db is not null if assertion fails will get error on this line
             try {
                 assert db != null ;
-                expenses = db.expensesdao();
+                expenses = db.expensesdao() ;
             } catch (AssertionError e) {
                 Log.e("debug addfragment" , "error at line 72") ;
                 throw new RuntimeException("error");
             }
-
-
-
-
-
-
 
             //Accessing buttons as java objects
             EditText amount = getActivity().findViewById(R.id.amouninput) ;
@@ -121,28 +131,37 @@ public class AddFragment extends Fragment {
             //The below clicklistener does that
             add.setOnClickListener(v -> {
                 long longamount;
-                String strcategory, strdate;
-                CategoryItem categoryitem = (CategoryItem) accesscat.getSelectedItem() ;
-                if (amount.getText() != null && dateinput.getText() != null && categoryitem != null) {
-                            longamount = Long.parseLong(amount.getText().toString());
-                            strcategory = categoryitem.getCategoryName();
-                            strdate = dateinput.getText().toString();
-                            expenses.add(longamount, strcategory, strdate);
+                String strcategory, strdate , email;
+                CategoryItem categoryitem = (CategoryItem) accesscat.getSelectedItem();
+                if (!amount.getText().equals("") && !dateinput.getText().toString().equals("") && !categoryitem.getCategoryName().toString().equals("")) {
+                    longamount = Long.parseLong(amount.getText().toString());
+                    strcategory = categoryitem.getCategoryName();
+                    strdate = dateinput.getText().toString();
+                    email = metadata.getString("email" , "empty") ;
+                    expenses.add(longamount, strcategory, strdate , email);
+                    int startindex = dateinput.getText().toString().indexOf('/');
+                    int endindex = strdate.indexOf("/", startindex + 1);
+                    int month = Integer.parseInt(strdate.substring(startindex + 1, endindex));
+                    int currentmonth = LocalDate.now().getMonthValue();
 
-                                if (cache != null) {
-                                    cache.edit().putLong("balance", cache.getLong("balance", 0) - longamount).commit();
-                                    viewModel.setDecrement(longamount); // or any long value
-                                    //TextView showdecrement = getActivity().findViewById(R.id.showdecrement) ;
-                                   // showdecrement.setText(String.valueOf(longamount));
-                                    Toast.makeText(getContext() , "saved successfully" , Toast.LENGTH_LONG).show() ;
-                                } else {
-                                    Log.d("FATAL exception", "error at line 129 file AddFragment");
-                                    expenses.Delete(strcategory, longamount, strdate);
-                                }
+                    if (currentmonth == month) {
+                        if (cache != null) {
+                            cache.edit().putLong("currentbalance", cache.getLong("currentbalance", 0) - longamount).commit();
+                            viewModel.setDecrement(longamount);// or any long value
+                            Toast.makeText(getContext(), "saved successfully", Toast.LENGTH_LONG).show();
                         } else {
-                            Snackbar.make(v, "Please fill all the fields", Snackbar.LENGTH_LONG).show();
+                            Log.d("FATAL exception", "error at line 129 file AddFragment");
+                            expenses.Delete(strcategory, longamount, strdate,email);
                         }
-                    }) ;
+                    }else {
+                        Toast.makeText(requireContext() , "this month is not current month" ,Toast.LENGTH_LONG).show() ;
+                    }
+                    viewModel.setthismonth(month);
+                }else {
+                    Toast.makeText(requireContext() , "please put input in the inputbox" , Toast.LENGTH_LONG).show() ;
+                }
+
+            }) ;
         }catch(NullPointerException e) {
             Log.e("tag" , "Error in accessing elements in add fragment") ;
         } catch (Exception e) {

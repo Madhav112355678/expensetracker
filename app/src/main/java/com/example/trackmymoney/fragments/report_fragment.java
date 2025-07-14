@@ -1,57 +1,39 @@
-package com.example.trackmymoney;
+package com.example.trackmymoney.fragments;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.trackmymoney.Dao.expensesDao;
-import com.example.trackmymoney.Model.expenses;
+import com.example.trackmymoney.Dao.expenseDetailsDao;
+import com.example.trackmymoney.Model.expensedetails;
 import com.example.trackmymoney.R;
 import com.example.trackmymoney.database.Appdatabase;
 import com.example.trackmymoney.database.DatabaseProvider;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.charts.BubbleChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.BubbleData;
-import com.github.mikephil.charting.data.BubbleDataSet;
-import com.github.mikephil.charting.data.BubbleEntry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.ValueFormatter;
-import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import com.github.mikephil.charting.charts.PieChart;
-
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -69,12 +51,13 @@ public class report_fragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     //database handlers variables
     private Appdatabase database;
-    private List<expenses> expenslist;
-    private expensesDao dataaccessobj;
+    private List<expensedetails> expenslist;
+    private expenseDetailsDao dataaccessobj;
+    private String email ;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
-    private String mParam2;
+    private SharedPreferences userpreferences;
 
     public report_fragment() {
         // Required empty public constructor
@@ -103,8 +86,11 @@ public class report_fragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            String temp= getArguments().getString(ARG_PARAM2);
         }
+
+        userpreferences = requireContext().getSharedPreferences("MyPrefs" , Context.MODE_PRIVATE) ;
+        email = userpreferences.getString("email" , "") ;
     }
 
     @Override
@@ -136,10 +122,10 @@ public class report_fragment extends Fragment {
         PieChart pieChart = view.findViewById(R.id.pieChart);
         //populating data in the chart
         ArrayList<PieEntry> entries = new ArrayList<>();
-        entries.add(new PieEntry(dataaccessobj.getSumByfood(), "Food"));
-        entries.add(new PieEntry(dataaccessobj.getSumByShopping(), "Shopping"));
-        entries.add(new PieEntry(dataaccessobj.getSumByTravel(), "Travel"));
-        entries.add(new PieEntry(dataaccessobj.getSumByOther(), "other"));
+        entries.add(new PieEntry(dataaccessobj.getSumByfood(email), "Food"));
+        entries.add(new PieEntry(dataaccessobj.getSumByShopping(email), "Shopping"));
+        entries.add(new PieEntry(dataaccessobj.getSumByTravel(email), "Travel"));
+        entries.add(new PieEntry(dataaccessobj.getSumByOther(email), "other"));
 
 
         PieDataSet dataSet = new PieDataSet(entries, "Spending Breakdown");
@@ -167,8 +153,8 @@ public class report_fragment extends Fragment {
         for (int i = 1; i <= day; i++) {
 
             datetofind = String.valueOf(i) + "/" + String.valueOf(month) + "/" + String.valueOf(year);
-            if (dataaccessobj.getSumPerDay(datetofind) > 0) {
-                totalof7days += dataaccessobj.getSumPerDay(datetofind);
+            if (dataaccessobj.getSumPerDay(datetofind , email) > 0) {
+                totalof7days += dataaccessobj.getSumPerDay(datetofind , email);
             }
             if (i % 7.00 == 0.00) {
                 data7days.add(totalof7days);

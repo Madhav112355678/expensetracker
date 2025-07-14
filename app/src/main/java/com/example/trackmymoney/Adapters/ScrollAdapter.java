@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.trackmymoney.Model.expenses;
+import com.example.trackmymoney.Model.expensedetails;
 import com.example.trackmymoney.R;
 
 import java.util.List;
@@ -14,9 +14,9 @@ import java.util.List;
 public class ScrollAdapter extends LinearLayout {
 
     private Context context;
-    private List<expenses> items;
+    private List<expensedetails> items;
 
-    public ScrollAdapter(Context context, List<expenses> items) {
+    public ScrollAdapter(Context context, List<expensedetails> items) {
         super(context);
         setOrientation(VERTICAL);
         this.context = context;
@@ -30,7 +30,7 @@ public class ScrollAdapter extends LinearLayout {
         if(items == null) {
             throw new NullPointerException();
         }
-        for (expenses item : items) {
+        for (expensedetails item : items) {
             View view = inflater.inflate(R.layout.single_item_layout, container, false);
             TextView amount = view.findViewById(R.id.amountview);
             TextView category = view.findViewById(R.id.categoryview);

@@ -1,25 +1,24 @@
 package com.example.trackmymoney;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.GridLayout;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ReportFragment;
-import androidx.lifecycle.ViewModelProvider;
 
-import com.example.trackmymoney.Dao.expensesDao;
-import com.example.trackmymoney.Model.expenses;
+import com.example.trackmymoney.Dao.expenseDetailsDao;
+import com.example.trackmymoney.Model.expensedetails;
 import com.example.trackmymoney.database.Appdatabase;
 import com.example.trackmymoney.database.DatabaseProvider;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.example.trackmymoney.fragments.AddFragment;
+import com.example.trackmymoney.fragments.HistoryFragment;
+import com.example.trackmymoney.fragments.HomeFragment;
+import com.example.trackmymoney.fragments.ProfileFragment;
+import com.example.trackmymoney.fragments.report_fragment;
 
 import java.util.List;
 
@@ -29,7 +28,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     public Appdatabase database ;
-    public List<expenses> expenslist ;
+    public List<expensedetails> expenslist ;
 
     androidx.constraintlayout.widget.ConstraintLayout bottomNavigation;
 
@@ -44,14 +43,13 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
         //building singleton database
         try {
             database = DatabaseProvider.getDatabase(this.getApplicationContext());
         }catch(Exception e) {
-             throw new RuntimeException("error in databaseprovider") ;
+            throw new RuntimeException("error in databaseprovider") ;
         }
-
-         //database.expensesdao().deleteAll();
 
         bottomNavigation = findViewById(R.id.bottom_navigation);
         //home button click
@@ -62,9 +60,10 @@ public class MainActivity extends AppCompatActivity {
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new HomeFragment()).commit();
             }
         });
-
-
-
+         //database.expensesdao().deleteAll();
+        SharedPreferences shard = getSharedPreferences("Balances" , MODE_PRIVATE) ;
+        shard.edit().remove("limit") ;
+        shard.edit().remove("currentbalance") ;
         //add button click
         Button add = findViewById(R.id.addbutton);
         add.setOnClickListener(new View.OnClickListener() {
@@ -82,26 +81,38 @@ public class MainActivity extends AppCompatActivity {
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new report_fragment()).commit();
             }
         });
+
+        ///profile button click
+        ImageButton profile = findViewById(R.id.profilebutton);
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new ProfileFragment()).commit();
+            }
+        });
+
+       Button history = findViewById(R.id.showhistory) ;
+        history.setOnClickListener(v -> {
+               getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container , new HistoryFragment()).commit() ;
+        });
     }
-
-
 
     // getting access to table
     protected void Start() {
         super.onStart() ;
-        expensesDao dataaccessobj;
-            if (database != null) {
-                dataaccessobj = database.expensesdao();
-                expenslist = dataaccessobj.getallexpenses();
+        expenseDetailsDao dataaccessobj;
+        if (database != null) {
+            dataaccessobj = database.expensesdao();
+            expenslist = dataaccessobj.getallexpenses();
+        }
+
+
+        //testing if expenslist is working or not
+        if (expenslist != null) {
+            for (expensedetails expens : expenslist) {
+                String print = (expens.amount) + expens.category + expens.date;
+                Toast.makeText(getApplicationContext(), print, Toast.LENGTH_LONG).show();
             }
-
-
-            //testing if expenslist is working or not
-            if (expenslist != null) {
-                for (expenses expens : expenslist) {
-                    String print = (expens.amount) + expens.category + expens.date;
-                    Toast.makeText(getApplicationContext(), print, Toast.LENGTH_LONG).show();
-                }
 
         }
     }

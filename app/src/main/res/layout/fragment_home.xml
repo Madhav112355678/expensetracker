@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".HomeFragment">
+    tools:context=".fragments.HomeFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -13,7 +13,7 @@
 
 <!-- card view to show balance and manage it -->
         <androidx.cardview.widget.CardView
-            app:layout_constraintEnd_toStartOf="@+id/wave1"
+            app:layout_constraintEnd_toStartOf="@+id/limitview"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:id="@+id/balanceviewer"
@@ -28,7 +28,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:hint="Remaining Balance"
+                android:hint= "Current\n Balance"
                 android:paddingTop="5dp"
                 android:textAlignment="center"
                 android:textColor="#99034B03"
@@ -80,7 +80,7 @@
                 android:hint="balance"
                 android:id="@+id/putbalance"
                 />
-  <!-- add balance button-->
+  <!-- add limit button-->
                 <Button
                     android:id="@+id/addbalance"
                     android:layout_width="match_parent"
@@ -93,7 +93,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/putbalance" />
-<!-- reset balance button -->
+<!-- reset limit button -->
                 <Button  app:layout_constraintTop_toBottomOf="@id/addbalance"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -132,21 +132,94 @@
                     android:background="#E90C0C"
                     android:gravity="center"
                     android:textAlignment="center"
-
                     />
             </androidx.constraintlayout.widget.ConstraintLayout>
-
         </androidx.cardview.widget.CardView>
 
-        <FrameLayout
-            android:id="@+id/wave1"
+
+        <TextView
+            android:id="@+id/limitview"
+            android:layout_width="180dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintBottom_toTopOf="@id/wave1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.538"
+            app:layout_constraintStart_toEndOf="@id/balanceviewer"
             app:layout_constraintTop_toTopOf="parent"
+            android:textSize="20sp"
+            android:padding="0dp"
+            android:hint="₹2000"
+            android:textAlignment="center"
+            android:gravity="center"/>
+
+
+        <!-- open this layout when limit is clicked -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/limithandler"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/limitview"
             app:layout_constraintStart_toEndOf="@id/balanceviewer"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_width="180dp"
-            android:layout_height="230dp"
+            android:layout_height="200dp"
             android:layout_marginEnd="15dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginStart="20dp"
+            android:clipToOutline="true"
+            android:elevation="17dp"
+            android:foreground="#61FFFFFF"
+            android:background="#FFFFFF">
+            >
+
+
+            <!-- shows input-->
+            <EditText
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="0dp"
+                android:inputType="number"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:hint="limit"
+                android:id="@+id/putlimit"
+                />
+            <!-- add limit button-->
+            <Button
+                android:id="@+id/addlimit"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:hint="Add limit"
+                android:padding="0dp"
+                android:textAlignment="center"
+                android:textColorHint="#C4FF03"
+                android:textSize="15sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/putlimit" />
+            <!-- reset limit button -->
+            <Button  app:layout_constraintTop_toBottomOf="@id/addlimit"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:id="@+id/resetlimit"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:hint="Set limit"
+                android:padding="0dp"
+                android:textSize="15sp"
+                android:textAlignment="center"
+                android:textColorHint="#C4FF03"
+                app:layout_constraintVertical_bias="0"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <FrameLayout
+            android:id="@+id/wave1"
+            app:layout_constraintTop_toBottomOf="@id/limitview"
+            app:layout_constraintStart_toEndOf="@id/balanceviewer"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="180dp"
+            android:layout_height="200dp"
+            android:layout_marginEnd="15dp"
             android:layout_marginStart="20dp"
             android:clipToOutline="true"
             android:elevation="17dp"
@@ -158,7 +231,7 @@
                 android:layout_height="50dp"
                 android:textAlignment="center"
                 android:padding="6dp"
-                android:text="75%"
+                android:text="0%"
                 android:textSize="20sp"
                 android:layout_gravity="center"/>
 

@@ -24,7 +24,7 @@ public class DatabaseProvider {
 
         synchronized (DatabaseProvider.class) {
             if (INSTANCE == null) {
-                INSTANCE = Room.databaseBuilder(context, Appdatabase.class, "expendituredb").
+                INSTANCE = Room.databaseBuilder(context, Appdatabase.class, "trialdb").
                         allowMainThreadQueries().build();
             }
         }

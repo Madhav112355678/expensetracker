@@ -63,50 +63,60 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="30dp"
         android:layout_height="50dp"
         android:background="@drawable/rounded_grid"
+
         >
 
         <Button
             android:id="@+id/homebutton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="14dp"
-            android:layout_height="30dp"
-            android:layout_width="30dp"
             android:background="@drawable/house_solid"
 
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/addbutton"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            />
+            app:layout_constraintEnd_toStartOf="@+id/addbutton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/addbutton"
+            android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_gravity="center_vertical"
-            android:layout_width="30dp"
-            android:layout_marginLeft="80dp"
+            android:layout_marginStart="88dp"
             android:background="@drawable/plus_solid"
-            app:layout_constraintStart_toEndOf="@id/homebutton"
-            app:layout_constraintEnd_toStartOf="@+id/statsbutton"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            />
+            app:layout_constraintStart_toEndOf="@id/homebutton"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/showhistory"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/historyicon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/statsbutton"
+            app:layout_constraintHorizontal_bias="0.574"
+            app:layout_constraintStart_toEndOf="@+id/addbutton"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/statsbutton"
-            android:layout_gravity="center_vertical"
-            android:layout_height="30dp"
             android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
             android:layout_marginLeft="80dp"
             android:background="@drawable/chart_simple_solid"
-            app:layout_constraintStart_toEndOf="@+id/addbutton"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.845"
+            app:layout_constraintStart_toEndOf="@+id/addbutton"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
