@@ -25,6 +25,8 @@ public class ProfileFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+
+    //onCReate view loads all buttons and set on click listener
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 

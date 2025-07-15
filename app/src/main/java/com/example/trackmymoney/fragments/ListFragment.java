@@ -16,7 +16,7 @@ import com.example.trackmymoney.R;
  * create an instance of this fragment.
  */
 
-//
+//list fragment
 public class ListFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match

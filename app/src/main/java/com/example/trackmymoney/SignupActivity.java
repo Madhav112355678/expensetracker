@@ -62,6 +62,7 @@ public class SignupActivity extends AppCompatActivity {
         EditText userpassword = this.findViewById(R.id.editTextTextPassword2) ;
         //TextView lognav = this.findViewById(R.id.textView2) ;
 
+        //goto login activity
         this.findViewById(R.id.signupbutton).setOnClickListener(v -> {
               String username = usernameinput.getText().toString().trim();
               String email = useremailinput.getText().toString().trim() ;

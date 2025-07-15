@@ -14,6 +14,9 @@ import java.util.List;
 @Dao
 public interface expenseDetailsDao {
 
+
+
+
     @Query("SELECT  * FROM expensedetails")
    public List<expensedetails> getallexpenses() ;
 

@@ -10,6 +10,8 @@ import com.example.trackmymoney.Model.User;
 @Dao
 public interface UserDao {
 
+    //all queries
+
     @Query("SELECT password FROM User WHERE username = :username")
     public String getPassword(String username) ;
 

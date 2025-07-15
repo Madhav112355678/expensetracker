@@ -119,6 +119,8 @@ public class report_fragment extends Fragment {
             dataaccessobj = null;
         }
 
+
+        //report fragment on change
         PieChart pieChart = view.findViewById(R.id.pieChart);
         //populating data in the chart
         ArrayList<PieEntry> entries = new ArrayList<>();

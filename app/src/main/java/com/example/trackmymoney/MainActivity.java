@@ -103,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // getting access to table
+    //so we can do crud operations
     protected void Start() {
         super.onStart() ;
         expenseDetailsDao dataaccessobj;

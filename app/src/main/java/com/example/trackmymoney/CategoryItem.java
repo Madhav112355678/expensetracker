@@ -9,6 +9,8 @@ public class CategoryItem {
         this.iconResId = iconResId;
     }
 
+
+    /// change
     public String getCategoryName() {
         return categoryName;
     }

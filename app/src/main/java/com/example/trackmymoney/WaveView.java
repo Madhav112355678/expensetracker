@@ -18,7 +18,7 @@ public class WaveView extends View {
 
     private int waveColor = Color.argb(128, 255, 0, 0); // 50% opacity
 
-
+     //waveView constructor
     public WaveView(Context context, AttributeSet attrs){
        super(context,attrs);
        init();

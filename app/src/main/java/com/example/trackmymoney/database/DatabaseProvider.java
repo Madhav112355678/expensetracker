@@ -15,6 +15,7 @@ public class DatabaseProvider {
     //helper class to get Database as a singleton everywhere they are static methods
     public static Appdatabase getDatabase(final Context context) throws Exception {
 
+        //try context is not null
         try {
             assert context != null;
         } catch (AssertionError e) {

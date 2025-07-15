@@ -49,6 +49,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class HomeFragment extends Fragment {
 
+    //all class memebers data
     private Appdatabase database;
     private List<expensedetails> expenslist;
     private expenseDetailsDao dataaccessobj;
@@ -413,6 +414,7 @@ public long getSumOfMonth() {
 
 
 class SwipeToDeleteTouchListener implements View.OnTouchListener {
+    //just a random class
     private GestureDetector gestureDetector;
     private View targetView;
     private LinearLayout parentLayout;
@@ -471,6 +473,7 @@ class SwipeToDeleteTouchListener implements View.OnTouchListener {
             try {
                 database.expensesdao().Deleteexpense(category, amount, date , email );
             }catch(Exception e) {
+
                 Log.d("#Error" , "DatabaseError:HomeFragment:381") ;
                 return false ;
             }

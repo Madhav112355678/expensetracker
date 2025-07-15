@@ -163,6 +163,7 @@ public class AddFragment extends Fragment {
 
             }) ;
         }catch(NullPointerException e) {
+            //log if error in accessing elements
             Log.e("tag" , "Error in accessing elements in add fragment") ;
         } catch (Exception e) {
             throw new RuntimeException(e);
