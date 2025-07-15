@@ -6,7 +6,7 @@
     tools:context=".fragments.ListFragment">
 
 
-
+    <!-- constraint layout -->
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"

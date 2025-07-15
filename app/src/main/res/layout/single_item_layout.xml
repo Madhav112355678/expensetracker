@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/clickbar"
     android:layout_marginBottom="10dp">
-
+    <!-- constraint layout -->
     <TextView
         android:id="@+id/amountview"
         android:layout_width="wrap_content"

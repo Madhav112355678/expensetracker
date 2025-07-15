@@ -9,7 +9,7 @@
         android:layout_marginStart="20dp"
         android:background="#a31f1f"
         >
-
+    <!-- constraint layout -->
         <ImageView
             android:layout_width="130dp"
             android:layout_height="160dp"

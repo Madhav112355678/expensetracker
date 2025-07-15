@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.report_fragment">
 
-
+    <!-- constraint layout -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/chartholder"
         android:layout_width="360dp"

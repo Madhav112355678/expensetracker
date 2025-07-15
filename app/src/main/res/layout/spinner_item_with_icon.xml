@@ -13,7 +13,7 @@
         android:layout_height="24dp"
         android:layout_marginEnd="12dp"
         android:contentDescription="icon" />
-
+    <!-- constraint layout -->
     <TextView
         android:id="@+id/categoryName"
         android:layout_width="wrap_content"

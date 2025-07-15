@@ -44,7 +44,7 @@
                 android:textSize="20sp"
                 android:textColor="#1FD139"/>
 <!-- button when clicked on this button we will have a view which will ask for add balance or reset it-->
-
+            <!-- constraint layout -->
             <TextView
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toTopOf="@id/putbalance"
