@@ -1,6 +1,9 @@
 package com.example.trackmymoney.fragments;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,16 +35,17 @@ public class HistoryFragment extends Fragment {
     @Override
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        active = getActivity() ;
         View view = inflater.inflate(R.layout.history_fragment, container, false);
         //takking all variables inside applcation
         Spinner myspinner = view.findViewById(R.id.history_filters);
-        String[] items = {"Today", "Last 5 days" , "Last month" , "This month" , "This year"};
+        String[] items = {"All expenses", "Last month" , "This month" , "This year"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, items);
         myspinner.setAdapter(adapter);
-        active = getActivity() ;
+        String item = myspinner.getSelectedItem().toString();
 
-        RecyclerView recycle = getActivity().findViewById(R.id.showhistoryitems) ;
-        recycle.getAdapter() ;
+
+
         return view;
     }
 

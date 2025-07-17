@@ -8,14 +8,18 @@ import com.example.trackmymoney.Model.expensedetails;
 
 import java.util.List;
 
-
 // This is expense data access object for from here we will call to database using this interface
 //access object is a interface which is used to querying our database it is a layer above our datamodel
 @Dao
 public interface expenseDetailsDao {
+    @Query("SELECT * FROM expensedetails WHERE email = :uemail ORDER BY date DESC ")
+   public List<expensedetails> getAllExpenses(String uemail);
 
+    @Query("SELECT * FROM expensedetails WHERE email = :uemail AND date >= date('now', '-7 days') ORDER BY date DESC")
+  public List<expensedetails> getExpensesLastWeek(String uemail);
 
-
+    @Query("SELECT * FROM expensedetails WHERE email = :uemail AND strftime('%Y-%m', date) = strftime('%Y-%m', 'now') ORDER BY date DESC")
+   public List<expensedetails> getExpensesThisMonth(String uemail);
 
     @Query("SELECT  * FROM expensedetails")
    public List<expensedetails> getallexpenses() ;

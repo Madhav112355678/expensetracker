@@ -11,6 +11,13 @@
     <style name="Theme.TrackMyMoney" parent="Base.Theme.TrackMyMoney" />
 
     <style name="Dialogtheme" parent="Theme.Material3.DayNight.Dialog">
-        <item name="colorAccent">@color/colorPrimary</item>
+        <!-- Use Material 3 color roles -->
+        <item name="buttonStyle">@style/DialogButtonStyle</item>
     </style>
+
+    <!-- Define the custom button style -->
+    <style name="DialogButtonStyle" parent="Widget.Material3.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/colorPrimary</item> <!-- Visible in both light and dark -->
+    </style>
+
 </resources>

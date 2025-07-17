@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Root LinearLayout that vertically arranges the top panel, fragment container, and bottom navigation -->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
-    <!-- constraint layout -->
+
+    <!-- Top Panel: Contains App Logo, Title, and Profile Button -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/topPanel"
         android:layout_width="match_parent"
@@ -14,33 +16,35 @@
         android:layout_marginTop="35dp"
         android:background="@drawable/upper_rounded_grid">
 
+        <!-- App Logo on the left -->
         <ImageView
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/title"
             android:id="@+id/logo"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
-            android:src="@drawable/logo" />
-
-        <TextView
-            android:layout_height="match_parent"
+            android:src="@drawable/logo"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/logo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/title" />
+
+        <!-- App Title TextView (centered between logo and profile button) -->
+        <TextView
             android:id="@+id/title"
-            app:layout_constraintEnd_toStartOf="@id/profilebutton"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:text="EXPENSE TRACKER"
             android:textAlignment="center"
             android:gravity="center"
             android:textColor="@color/Secondary"
             android:textSize="28sp"
-            android:textStyle="italic"  android:layout_width="wrap_content"/>
-
-        <ImageButton
+            android:textStyle="italic"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/logo"
+            app:layout_constraintEnd_toStartOf="@id/profilebutton" />
+
+        <!-- Profile Button on the right -->
+        <ImageButton
             android:id="@+id/profilebutton"
             android:layout_width="40dp"
             android:layout_height="45dp"
@@ -48,12 +52,15 @@
             android:background="@drawable/bottom_rounded"
             android:scaleType="fitXY"
             android:src="@drawable/baseline_supervised_user_circle_24"
-            app:layout_constraintEnd_toEndOf="parent"
+            tools:layout_editor_absoluteY="0dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/title"
-            tools:layout_editor_absoluteY="0dp" />
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <!-- NavHost Fragment Container: Used to host the fragments (Home, Add, History, Stats) -->
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView"
         android:name="androidx.navigation.fragment.NavHostFragment"
@@ -61,15 +68,17 @@
         android:layout_height="700dp"
         android:layout_gravity="center_horizontal"
         app:defaultNavHost="true"
-        app:navGraph="@navigation/nav_graph"/>
+        app:navGraph="@navigation/nav_graph" />
 
+    <!-- Bottom Navigation Bar: Contains 4 navigation buttons -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
-        android:layout_marginBottom="30dp"
         android:layout_height="50dp"
+        android:layout_marginBottom="30dp"
         android:background="@drawable/rounded_grid">
 
+        <!-- Home Button (left-most) -->
         <Button
             android:id="@+id/homebutton"
             android:layout_width="30dp"
@@ -77,12 +86,12 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="14dp"
             android:background="@drawable/house_solid"
-
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/addbutton"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintEnd_toStartOf="@+id/addbutton" />
 
+        <!-- Add Button (second from left) -->
         <Button
             android:id="@+id/addbutton"
             android:layout_width="30dp"
@@ -90,22 +99,24 @@
             android:layout_gravity="center_vertical"
             android:layout_marginStart="88dp"
             android:background="@drawable/plus_solid"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/homebutton"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toEndOf="@id/homebutton" />
 
+        <!-- History Button (center-right) -->
         <Button
             android:id="@+id/showhistory"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_gravity="center_vertical"
             android:background="@drawable/historyicon"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/statsbutton"
-            app:layout_constraintHorizontal_bias="0.574"
             app:layout_constraintStart_toEndOf="@+id/addbutton"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintEnd_toStartOf="@+id/statsbutton"
+            app:layout_constraintHorizontal_bias="0.574" />
 
+        <!-- Stats Button (right-most) -->
         <Button
             android:id="@+id/statsbutton"
             android:layout_width="30dp"
@@ -113,15 +124,12 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="80dp"
             android:background="@drawable/chart_simple_solid"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.845"
             app:layout_constraintStart_toEndOf="@+id/addbutton"
-            app:layout_constraintTop_toTopOf="parent" />
-
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.845" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 
 </LinearLayout>

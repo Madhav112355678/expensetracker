@@ -1,39 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Root FrameLayout serves as the main container -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     tools:context=".fragments.AddFragment">
 
+    <!-- Thin black separator at the top of the layout -->
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="5dp"
-        android:background="@color/black"
-        />
+        android:background="@color/black" />
 
-    <!-- constraint layout -->
-     <androidx.constraintlayout.widget.ConstraintLayout
-         android:layout_width="match_parent"
-         android:layout_height="match_parent">
+    <!-- Main content container using ConstraintLayout -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-         <TextView
-             android:id="@+id/topPanel"
-             android:layout_width="match_parent"
-             android:layout_marginTop="5dp"
-             android:layout_height="80dp"
-             android:text="Add New Expense"
-             android:textSize="28sp"
-             android:gravity="center"
-             android:textStyle="bold"
-             android:textColor="@color/Secondary"
-             android:background="@drawable/bottom_rounded"
-             app:layout_constraintTop_toTopOf="parent"
-             app:layout_constraintStart_toStartOf="parent"
-             app:layout_constraintBottom_toTopOf="@+id/amount_layout"
-             />
+        <!-- Top title panel showing screen heading -->
+        <TextView
+            android:id="@+id/topPanel"
+            android:layout_width="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_height="80dp"
+            android:text="Add New Expense"
+            android:textSize="28sp"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textColor="@color/Secondary"
+            android:background="@drawable/bottom_rounded"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/amount_layout" />
 
+        <!-- Amount input layout -->
         <GridLayout
             android:id="@+id/amount_layout"
             android:orientation="vertical"
@@ -43,16 +44,17 @@
             app:layout_constraintTop_toBottomOf="@+id/topPanel"
             app:layout_constraintBottom_toTopOf="@+id/date_layout"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            >
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <!-- Amount label -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:text="Amount"
-                android:textSize="18sp"/>
+                android:textSize="18sp" />
 
-
+            <!-- Amount input field -->
             <EditText
                 android:id="@+id/amouninput"
                 android:layout_width="350dp"
@@ -67,32 +69,34 @@
                 android:textColorHint="@color/black" />
         </GridLayout>
 
+        <!-- Label for the date section -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Date"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/amount_layout"
+            app:layout_constraintBottom_toTopOf="@+id/date_layout" />
 
-         <TextView
-             app:layout_constraintStart_toStartOf="parent"
-             app:layout_constraintEnd_toEndOf="parent"
-             app:layout_constraintTop_toBottomOf="@+id/amount_layout"
-             app:layout_constraintBottom_toTopOf="@+id/date_layout"
-             android:gravity="center_horizontal"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:text="Date"
-             android:layout_gravity="center_horizontal"
-             android:textSize="18sp"/>
-
+        <!-- Layout for the date input and selector -->
         <GridLayout
-            android:layout_marginVertical="30dp"
             android:id="@+id/date_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_marginTop="20dp"
+            android:layout_marginVertical="30dp"
+            android:orientation="vertical"
+            android:background="@drawable/rounded_grid1"
             app:layout_constraintTop_toBottomOf="@+id/amount_layout"
             app:layout_constraintBottom_toTopOf="@+id/select_layout"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:background="@drawable/rounded_grid1"
-            >
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <!-- Horizontal layout for date input and calendar button -->
             <LinearLayout
                 android:id="@+id/dateviewer"
                 android:layout_width="350dp"
@@ -101,82 +105,81 @@
                 android:background="@drawable/rounded_grid1"
                 android:layout_row="0"
                 android:layout_column="0">
-            <EditText
-                android:layout_marginStart="5dp"
-                android:id="@+id/dateinput"
-                android:layout_width="300dp"
-                android:layout_height="60dp"
-                android:gravity="center"
-                android:hint="Enter date"
-                android:inputType="date"
-                android:textColorHint="@color/black"
-               />
 
-            <Button
-                android:id="@+id/dateselector"
-                android:layout_marginStart="5dp"
-                android:layout_gravity="center"
-                 android:layout_height="40dp"
-                android:layout_width="32dp"
-                android:background="@drawable/baseline_calendar_month_24"
-                android:clickable="true"
+                <!-- Editable date input field -->
+                <EditText
+                    android:id="@+id/dateinput"
+                    android:layout_width="300dp"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="5dp"
+                    android:gravity="center"
+                    android:hint="Enter date"
+                    android:inputType="date"
+                    android:textColorHint="@color/black" />
 
-                />
+                <!-- Date picker button (calendar icon) -->
+                <Button
+                    android:id="@+id/dateselector"
+                    android:layout_width="32dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="5dp"
+                    android:background="@drawable/baseline_calendar_month_24"
+                    android:clickable="true" />
             </LinearLayout>
-
         </GridLayout>
 
-         <GridLayout
-             android:id="@+id/select_layout"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:orientation="vertical"
-             android:layout_marginTop="20dp"
-             app:layout_constraintTop_toBottomOf="@+id/date_layout"
+        <!-- Layout for category selection -->
+        <GridLayout
+            android:id="@+id/select_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/date_layout">
 
+            <!-- Category label -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/category"
+                android:textSize="18sp" />
 
-             >
-             <TextView
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:layout_gravity="center_horizontal"
-                 android:text="@string/category"
-                 android:textSize="18sp"
-                 />
+            <!-- Category dropdown spinner -->
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="350dp"
+                android:layout_height="60dp"
+                android:padding="12dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/rounded_grid1" />
+        </GridLayout>
 
-             <Spinner
-                 android:id="@+id/spinner"
-                 android:layout_width="350dp"
-                 android:layout_height="60dp"
-                 android:padding="12dp"
-                 android:layout_gravity="center_horizontal"
-                 android:background="@drawable/rounded_grid1"
-                 />
-         </GridLayout>
+        <!-- Save button layout -->
+        <GridLayout
+            android:id="@+id/descriptionlayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/select_layout">
 
-         <GridLayout
-             android:id="@+id/descriptionlayout"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:layout_marginTop="20dp"
-             app:layout_constraintTop_toBottomOf="@+id/select_layout">
+            <!-- Save/Add expense button -->
+            <Button
+                android:id="@+id/addbutton"
+                android:layout_width="350dp"
+                android:layout_height="55dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/clickbar2"
+                android:fontFamily="sans-serif-black"
+                android:text="save"
+                android:textAllCaps="true"
+                android:textColor="#FFF"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:typeface="monospace" />
+        </GridLayout>
 
-             <Button
-                 android:layout_marginTop="20dp"
-                 android:id="@+id/addbutton"
-                 android:layout_width="350dp"
-                 android:layout_height="55dp"
-                 android:layout_gravity="center_horizontal"
-                 android:background="@drawable/clickbar2"
-                 android:fontFamily="sans-serif-black"
-                 android:text="save"
-                 android:textAllCaps="true"
-                 android:textColor="#FFF"
-                 android:textSize="20sp"
-                 android:textStyle="bold"
-                 android:typeface="monospace" />
-         </GridLayout>
-
-     </androidx.constraintlayout.widget.ConstraintLayout>
-
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
